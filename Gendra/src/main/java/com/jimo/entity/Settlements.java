@@ -7,18 +7,26 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 @Entity
 @Table(name = "settlements")
+@ApiModel(description = "Este es el modelo referente a los asentamientos de cada código postal")
 public class Settlements {
 
+	@ApiModelProperty(notes = "Campo que corresponde al identificador del asentamiento en la base de datos")
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "settlement_id", updatable = false, nullable = false)
 	private int settlement_id;
+	@ApiModelProperty(notes = "Campo que corresponde al nombre del asentamiento")
 	@Column(name = "name")
 	private String name;
+	@ApiModelProperty(notes = "Campo que corresponde al tipo de zona del asentamiento")
 	@Column(name = "zona_type")
 	private String zona_type;
+	@ApiModelProperty(notes = "Campo que corresponde al tipo de asentamiento")
 	@Column(name = "settlement_type")
 	private String settlement_type;
 

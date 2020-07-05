@@ -32,20 +32,20 @@ public class ZipCodeResourceTesting {
 	@MockBean
 	private ZipCodeService zipCodeService;
 
-	List<ZipCode> zipCodeList = Arrays.asList(new ZipCode(1, "1389", "Ciudad de Mexico", "Ciudad de Mexico",
-			new Settlements(1, "'Santa Fe Tlayapaca'", "'Urbano'", "'Colonia'"), "Alvaro Obregon"));
+	List<ZipCode> zipCodeList = Arrays.asList(new ZipCode(2, "1400", "Ciudad de Mexico", "Ciudad de Mexico",
+			new Settlements(2, "'Santa Fe Tlayapaca'", "'Urbano'", "'Colonia'"), "Alvaro Obregon"));
 
 	@Test
 	public void zipCodeTest() throws Exception {
 
-		Mockito.when(zipCodeService.findByZipCode("1389")).thenReturn(zipCodeList);
+		Mockito.when(zipCodeService.findByZipCode("1400")).thenReturn(zipCodeList);
 
-		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("http://localhost:8080/zip/v1/find/1389")
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("http://localhost:8080/zip/v1/find/1400")
 				.accept(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
 
-		String expected = "[{\"id_zip\":1,\"zip_code\":\"1389\",\"locality\":\"Ciudad de Mexico\",\"federal_entity\":\"Ciudad de Mexico\",\"settlement\":{\"settlement_id\":1,\"name\":\"'Santa Fe Tlayapaca'\",\"zona_type\":\"'Urbano'\",\"settlement_type\":\"'Colonia'\"},\"municipality\":\"Alvaro Obregon\"}]";
+		String expected = "[{\"id_zip\":2,\"zip_code\":\"1400\",\"locality\":\"Ciudad de Mexico\",\"federal_entity\":\"Ciudad de Mexico\",\"settlement\":{\"settlement_id\":2,\"name\":\"'Santa Fe Tlayapaca'\",\"zona_type\":\"'Urbano'\",\"settlement_type\":\"'Colonia'\"},\"municipality\":\"Alvaro Obregon\"}]";
 
 		JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), false);
 

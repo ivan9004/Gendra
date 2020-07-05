@@ -15,34 +15,32 @@ import com.jimo.entity.ZipCode;
 import com.jimo.exception.resource.ZipCodeNotFoundException;
 import com.jimo.service.ZipCodeService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+
 @RestController
 @RequestMapping("zip/v1")
+@Api(value = "API REST realizada para la consulta de códigos postales de la Ciudad de Mexcio")
 public class ZipCodeController {
 
 	@Autowired
 	ZipCodeService service;
 
-	/**
-	 * Método para enlistar los códigos postales en la base de datos
-	 * 
-	 * @return Se retorna un elemento de tipo lista con los códigos postales en la
-	 *         base de datos
-	 */
 	@GetMapping(path = "zipcode", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ApiOperation(value = "Este método lista todos los códigos postales existentes en la base de datos", response = List.class)
 	public ResponseEntity<List<ZipCode>> listAll() {
 		List<ZipCode> list = service.listAll();
 		return ResponseEntity.ok().cacheControl(CacheControl.noCache()).body(list);
 	}
 
-	/**
-	 * Método que permite encontrar un código postal en especifico
-	 * 
-	 * @param zipCode Se recibe un tipo de dato String para realizar la búsqueda
-	 * @return Retorna un tipo de dato Lista que contiene los códigos postales que
-	 *         coinciden con el dado por el usuario
-	 */
 	@GetMapping("/find/{zipCode}")
-	public ResponseEntity<List<ZipCode>> getZipCode(@PathVariable("zipCode") String zipCode) {
+	@ApiOperation(value = "Este método lista todos los códigos postales existentes en la base de datos con el valor dado", response = List.class)
+	@ApiResponses(value = { @ApiResponse(code = 404, message = "No existe el codigo postal:") })
+	public ResponseEntity<List<ZipCode>> getZipCode(
+			@ApiParam(value = "Se requiere el código postal que desea buscar un ejemplo: 1400", required = true) @PathVariable("zipCode") String zipCode) {
 		List<ZipCode> zipCodeResult = service.findByZipCode(zipCode);
 		if (!zipCodeResult.isEmpty()) {
 			return ResponseEntity.ok().body(zipCodeResult);
