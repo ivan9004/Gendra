@@ -29,14 +29,14 @@ public class ZipCodeController {
 	@Autowired
 	ZipCodeService service;
 
-	@GetMapping(path = "zipcode", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(path = "zip-codes", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperation(value = "Este método lista todos los códigos postales existentes en la base de datos", response = List.class)
 	public ResponseEntity<List<ZipCode>> listAll() {
 		List<ZipCode> list = service.listAll();
 		return ResponseEntity.ok().cacheControl(CacheControl.noCache()).body(list);
 	}
 
-	@GetMapping("/find/{zipCode}")
+	@GetMapping("/zip-codes/{zipCode}")
 	@ApiOperation(value = "Este método lista todos los códigos postales existentes en la base de datos con el valor dado", response = List.class)
 	@ApiResponses(value = { @ApiResponse(code = 404, message = "No existe el codigo postal:") })
 	public ResponseEntity<List<ZipCode>> getZipCode(
