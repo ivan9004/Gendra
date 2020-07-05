@@ -42,7 +42,7 @@ public class ZipCodeController {
 	 *         coinciden con el dado por el usuario
 	 */
 	@GetMapping("/find/{zipCode}")
-	public ResponseEntity<List<ZipCode>> getById(@PathVariable("zipCode") String zipCode) {
+	public ResponseEntity<List<ZipCode>> getZipCode(@PathVariable("zipCode") String zipCode) {
 		List<ZipCode> zipCodeResult = service.findByZipCode(zipCode);
 		if (!zipCodeResult.isEmpty()) {
 			return ResponseEntity.ok().body(zipCodeResult);

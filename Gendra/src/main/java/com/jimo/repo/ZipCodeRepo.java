@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.jimo.entity.ZipCode;
-import com.jimo.exception.resource.ZipCodeNotFoundException;
 
 @Repository
 public interface ZipCodeRepo extends JpaRepository<ZipCode, Integer>{
