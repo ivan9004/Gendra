@@ -40,7 +40,7 @@ public class ZipCodeResourceTesting {
 
 		Mockito.when(zipCodeService.findByZipCode("1400")).thenReturn(zipCodeList);
 
-		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("http://localhost:8080/zip/v1/find/1400")
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("https://gendra-281916.uc.r.appspot.com/zip/v1/zip-codes/1400")
 				.accept(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
