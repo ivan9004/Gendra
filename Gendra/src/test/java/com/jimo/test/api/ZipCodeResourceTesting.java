@@ -32,21 +32,23 @@ public class ZipCodeResourceTesting {
 	@MockBean
 	private ZipCodeService zipCodeService;
 
-	List<ZipCode> zipCodeList = Arrays.asList(new ZipCode(2, "1400", "Ciudad de Mexico", "Ciudad de Mexico",
-			new Settlements(2, "'Santa Fe Tlayapaca'", "'Urbano'", "'Colonia'"), "Alvaro Obregon"));
+	List<ZipCode> zipCodeList = Arrays.asList(new ZipCode(3, 31009, "Chihuahua", "Chihuahua", 
+			Arrays.asList( new Settlements(9, "'Palacio de Gobierno del Estado de Chihuahua'", "'Urbano' ", "'Gran usuario'", 31009)), "Chihuahua"));
+	
+			
 
 	@Test
 	public void zipCodeTest() throws Exception {
 
-		Mockito.when(zipCodeService.findByZipCode("1400")).thenReturn(zipCodeList);
+		Mockito.when(zipCodeService.findByZipCode(31009)).thenReturn(zipCodeList);
 
-		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("https://gendra-281916.uc.r.appspot.com/zip/v1/zip-codes/1400")
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("https://gendra-281916.uc.r.appspot.com/zip/v1/zip-codes/31009")
 				.accept(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
 
-		String expected = "[{\"id_zip\":2,\"zip_code\":\"1400\",\"locality\":\"Ciudad de Mexico\",\"federal_entity\":\"Ciudad de Mexico\",\"settlement\":{\"settlement_id\":2,\"name\":\"'Santa Fe Tlayapaca'\",\"zona_type\":\"'Urbano'\",\"settlement_type\":\"'Colonia'\"},\"municipality\":\"Alvaro Obregon\"}]";
-
+		String expected = "[{\"id_zip\":3,\"zip_code\":31009,\"locality\":\"Chihuahua\",\"federal_entity\":\"Chihuahua\",\"settlement\":[{\"settlement_id\":9,\"name\":\"'Palacio de Gobierno del Estado de Chihuahua'\",\"zona_type\":\"'Urbano' \",\"settlement_type\":\"'Gran usuario'\",\"zip_code_settlement\":31009}],\"municipality\":\"Chihuahua\"}]";
+				
 		JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), false);
 
 	}

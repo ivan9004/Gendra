@@ -1,13 +1,15 @@
 package com.jimo.entity;
 
-import javax.persistence.CascadeType;
+import java.io.Serializable;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import io.swagger.annotations.ApiModel;
@@ -16,7 +18,12 @@ import io.swagger.annotations.ApiModelProperty;
 @Entity
 @Table(name = "zip_code")
 @ApiModel(description = "Este es el modelo referente a los codigos postales")
-public class ZipCode {
+public class ZipCode implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@ApiModelProperty(notes = "Identificador que corresponde al objeto en la base de datos")
 	@Id
@@ -24,7 +31,7 @@ public class ZipCode {
 	private int id_zip;
 	@ApiModelProperty(notes = "Este campo es el código postal")
 	@Column(name = "zip_code")
-	private String zip_code;
+	private int zip_code;
 	@ApiModelProperty(notes = "Campo referente a la localidad del código postal")
 	@Column(name = "locality ")
 	private String locality;
@@ -32,9 +39,9 @@ public class ZipCode {
 	@Column(name = "federal_entity ")
 	private String federal_entity;
 	@ApiModelProperty(notes = "Campo de relación entre tablas zip_code y settlements en la base de datos permite enlistar los asentamientos correspondientes al código postal")
-	@JoinColumn(name = "settlement_id", referencedColumnName = "settlement_id")
-	@ManyToOne(targetEntity = Settlements.class, cascade = CascadeType.ALL)
-	private Settlements settlement;
+	@JoinColumn(name = "zip_code_settlement", referencedColumnName = "zip_code", insertable = false, updatable = false)
+	@OneToMany
+	private List<Settlements> settlement;
 	@ApiModelProperty(notes = "Campo correspondiente al municipio del código postal")
 	@Column(name = "municipality")
 	private String municipality;
@@ -43,7 +50,7 @@ public class ZipCode {
 		super();
 	}
 
-	public ZipCode(int id_zip, String zip_code, String locality, String federal_entity, Settlements settlement,
+	public ZipCode(int id_zip, int zip_code, String locality, String federal_entity, List<Settlements> settlement,
 			String municipality) {
 		super();
 		this.id_zip = id_zip;
@@ -62,11 +69,11 @@ public class ZipCode {
 		this.id_zip = id_zip;
 	}
 
-	public String getZip_code() {
+	public int getZip_code() {
 		return zip_code;
 	}
 
-	public void setZip_code(String zip_code) {
+	public void setZip_code(int zip_code) {
 		this.zip_code = zip_code;
 	}
 
@@ -86,11 +93,11 @@ public class ZipCode {
 		this.federal_entity = federal_entity;
 	}
 
-	public Settlements getSettlement() {
+	public List<Settlements> getSettlement() {
 		return settlement;
 	}
 
-	public void setSettlement(Settlements settlement) {
+	public void setSettlement(List<Settlements> settlement) {
 		this.settlement = settlement;
 	}
 

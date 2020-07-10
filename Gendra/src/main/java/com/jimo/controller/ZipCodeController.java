@@ -40,7 +40,7 @@ public class ZipCodeController {
 	@ApiOperation(value = "Este método lista todos los códigos postales existentes en la base de datos con el valor dado", response = List.class)
 	@ApiResponses(value = { @ApiResponse(code = 404, message = "No existe el codigo postal:") })
 	public ResponseEntity<List<ZipCode>> getZipCode(
-			@ApiParam(value = "Se requiere el código postal que desea buscar un ejemplo: 1400", required = true) @PathVariable("zipCode") String zipCode) {
+			@ApiParam(value = "Se requiere el código postal que desea buscar un ejemplo: 1400", required = true) @PathVariable("zipCode") int zipCode) {
 		List<ZipCode> zipCodeResult = service.findByZipCode(zipCode);
 		if (!zipCodeResult.isEmpty()) {
 			return ResponseEntity.ok().body(zipCodeResult);

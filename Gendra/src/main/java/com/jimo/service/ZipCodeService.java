@@ -18,7 +18,7 @@ public class ZipCodeService {
 		return repo.findAll();
 	}
 	
-	public List<ZipCode> findByZipCode(String zipCode) {
+	public List<ZipCode> findByZipCode(int zipCode) {
 		return repo.findByZipCode(zipCode);
 	}
 }

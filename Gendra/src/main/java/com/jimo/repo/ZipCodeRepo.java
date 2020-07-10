@@ -12,6 +12,6 @@ import com.jimo.entity.ZipCode;
 public interface ZipCodeRepo extends JpaRepository<ZipCode, Integer>{
 	
 	@Query("SELECT z FROM ZipCode z WHERE z.zip_code = ?1")
-	 List<ZipCode> findByZipCode(String zipCode);
+	 List<ZipCode> findByZipCode(int zipCode);
 
 }
